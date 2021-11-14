@@ -8,5 +8,8 @@ const Header = ({title}:props) => {
         </header>
     );
 };
+Header.defaultProps = {
+    title: "hi"
+}
 
 export default Header;
