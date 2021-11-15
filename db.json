@@ -33,7 +33,7 @@
     {
       "text": "test",
       "day": "12313d",
-      "reminder": false,
+      "reminder": true,
       "id": 6
     }
   ]
