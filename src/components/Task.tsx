@@ -1,4 +1,5 @@
-import React from 'react';
+import {FaTimes} from "react-icons/fa";
+
 interface task { //making our "type"
     id?: number,
     text?: string,
@@ -7,11 +8,13 @@ interface task { //making our "type"
 }
 interface props {
     taskOne: task
+    onDelete: any
 }
-const Task = ({taskOne}:props) => {
+const Task = ({taskOne, onDelete}:props) => {
     return (
         <div className={'task'}>
-            <h3>{taskOne.text}</h3>
+            <h3>{taskOne.text} <FaTimes style={{color:'red', cursor: 'pointer'}} onClick={() => onDelete(taskOne.id)}/></h3>
+            <p>{taskOne.day}</p>
         </div>
     );
 };

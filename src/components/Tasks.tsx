@@ -1,4 +1,5 @@
 import Task from "./Task";
+import React from "react";
 interface task { //making our "type"
     id?: number,
     text?: string,
@@ -7,13 +8,14 @@ interface task { //making our "type"
 }
 interface props {
     tasks: task[]
+    onDelete: any
 }
-const Tasks = ({tasks}:props) => {
+const Tasks = ({tasks, onDelete}:props) => {
 
     return (
         <>
             {tasks.map( (task) => (
-                <Task key={task.id} taskOne={task} />
+                <Task key={task.id} taskOne={task} onDelete={onDelete}/>
             ))}
         </>
     );
