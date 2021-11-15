@@ -3,17 +3,16 @@ import {useState, useEffect} from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
+interface task{
+    id: number,
+    text: string,
+    day: string,
+    reminder: boolean
+}
 function App() {
 
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([
-        {
-            id: 0 as number,
-            text: "default" as string,
-            day: "default" as string,
-            reminder: false as boolean
-        },
-    ]);
+    const [tasks, setTasks] = useState<task[]>([]);
     useEffect(() => {
         const getTasks = async () => {
             const taskFromServer = await fetchTasks()
@@ -29,11 +28,20 @@ function App() {
         return data
     }
     //Add Task to existing Tasks
-    const addTask = (task:any) => {
-      console.log(task)
-        const id = Math.floor(Math.random() * 10000) +1
-        const newTask = {id, ...task} //object with rand id and task
-        setTasks([...tasks, newTask])
+    const addTask = async (task: task[]) => {
+        const res = await fetch('http://localhost:5000/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body:JSON.stringify(task) //from js object to json
+            })
+        const data = await res.json() as task
+        setTasks([...tasks, data])
+      // console.log(task)
+      //   const id = Math.floor(Math.random() * 10000) +1
+      //   const newTask = {id, ...task} //object with rand id and task
+      //   setTasks([...tasks, newTask])
     }
     // Delete Task
     const deleteTask = async (id? : number) => {
