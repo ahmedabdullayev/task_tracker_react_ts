@@ -1,4 +1,4 @@
-import React from "react";
+import Task from "./Task";
 interface task { //making our "type"
     id?: number,
     text?: string,
@@ -13,7 +13,7 @@ const Tasks = ({tasks}:props) => {
     return (
         <>
             {tasks.map( (task) => (
-                <h3 key={task.id}>{task.text}</h3>
+                <Task key={task.id} taskOne={task} />
             ))}
         </>
     );
