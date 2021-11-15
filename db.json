@@ -10,7 +10,7 @@
       "id": 2,
       "text": "Meeting at school",
       "day": "Feb 23 at 2:30pm",
-      "reminder": true
+      "reminder": false
     },
     {
       "text": "task1",
@@ -27,7 +27,7 @@
     {
       "text": "4eki1",
       "day": "323",
-      "reminder": true,
+      "reminder": false,
       "id": 5
     },
     {
