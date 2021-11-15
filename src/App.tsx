@@ -21,6 +21,7 @@ function App() {
         }
         getTasks()
     }, [])
+    //npm run server - to run server
     const fetchTasks = async () => {
         const res = await fetch('http://localhost:5000/tasks')
         const data = await res.json()
@@ -35,7 +36,10 @@ function App() {
         setTasks([...tasks, newTask])
     }
     // Delete Task
-    const deleteTask = (id? : number) => {
+    const deleteTask = async (id? : number) => {
+        await  fetch(`http://localhost:5000/tasks/${id}`, {
+            method: 'DELETE'
+        })
       setTasks(tasks.filter((task) => task.id !== id)) //filtering out tasks, delete task
     }
     //Toggle Reminder
