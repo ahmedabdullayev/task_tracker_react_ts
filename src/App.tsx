@@ -27,21 +27,21 @@ function App() {
 
         return data
     }
+    async function fetchAsync(task: task[]): Promise<task> {
+        const res = await fetch('http://localhost:5000/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify(task) //from js object to json
+        })
+        return await res.json();
+    }
     //Add Task to existing Tasks
     const addTask = async (task: task[]) => {
-        const res = await fetch('http://localhost:5000/tasks', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body:JSON.stringify(task) //from js object to json
-            })
-        const data = await res.json() as task
+        let taskPromise = fetchAsync(task);
+        const data = await taskPromise
         setTasks([...tasks, data])
-      // console.log(task)
-      //   const id = Math.floor(Math.random() * 10000) +1
-      //   const newTask = {id, ...task} //object with rand id and task
-      //   setTasks([...tasks, newTask])
     }
     // Delete Task
     const deleteTask = async (id? : number) => {
