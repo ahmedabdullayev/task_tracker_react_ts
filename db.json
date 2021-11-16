@@ -27,14 +27,8 @@
     {
       "text": "4eki1",
       "day": "323",
-      "reminder": false,
-      "id": 5
-    },
-    {
-      "text": "test",
-      "day": "12313d",
       "reminder": true,
-      "id": 6
+      "id": 5
     }
   ]
 }

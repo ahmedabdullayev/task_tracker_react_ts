@@ -1,9 +1,10 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useMemo} from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import {AppContextProvider,initialAppState} from "./context/AppContex";
 import {BrowserRouter as Router,Route, Routes, Link} from "react-router-dom";
 interface task{
     id: number,
@@ -22,6 +23,7 @@ function App() {
         }
         getTasks()
     }, [])
+
     //npm run server - to run server
     const fetchTasks = async () => {
         const res = await fetch('http://localhost:5000/tasks')
@@ -73,8 +75,17 @@ function App() {
 
       setTasks(tasks.map( (task) => task.id === id ? {...task, reminder: data.reminder} : {...task} ))
     }
-  return (
+    // const [value, setValue] = useState(null)
+    // const memo = useMemo(() => ({value, setValue}), [value, setValue])
+    const setAuthInfo = (jwt: string | null, firstName: string, lastName: string, role: string): void => {
+        setAppState({...appState, jwt, firstName,  lastName, role});
+    }
+
+    const [appState, setAppState] = useState({...initialAppState, setAuthInfo });
+
+    return (
   <>
+      <AppContextProvider value={appState}>
     <Router>
           <div className="container">
               <Header title='hello' onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
@@ -85,9 +96,10 @@ function App() {
           <Footer/>
         <Routes>
             <Route path="/about" element={<About></About>}> </Route>
-            <Route path="/footer" element={<Footer></Footer>}></Route>
+            {/*<Route path="/" element={<Footer></Footer>}></Route>*/}
         </Routes>
     </Router>
+      </AppContextProvider>
   </>
   );
 }
